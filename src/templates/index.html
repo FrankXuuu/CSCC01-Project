@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  {% include 'navigation.html' %}
+  {% include 'nav-prof-dashboard.html' %}
+        <li class="breadcrumb-item active">My Dashboard</li>
+      </ol>
+      <div class="m-scene" id="main">
+      <div class="row scene_element scene_element--fadeinright">
+        <div class="col-12">
+          <h1>Dashboard</h1>
+          {% for assignment in assignments %}
+          <div class="assignment-list">
+              
+                      <div class="row" onclick="post('/dashboard', {assignment: {{ assignment.assignment_id }}})">
+                            <div class="col lead">
+                              
+                                {{ assignment }}
+                            </div>
+                
+                            <div class="text-center lead col" padding-right="5px">
+                              EDIT
+                            </div>
+                      </div>
+          </div>
+            <!-- <div class="assignment-start-wrapper">
+              <h4 class="start-assignment-name">{{ assignment }}</h4>
+              <button class="btn start-assignment-button" onclick="post('/dashboard', {assignment: {{ assignment.assignment_id }}})">Edit</button>
+              <br class="clear" />
+            </div> -->
+          {% else %}
+            <p>You have not created any assignments yet</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    {% include 'footer.html' %} 
+    <!-- Logout Modal-->
+    {% include 'logout.html' %} 
+    <!-- Bootstrap core JavaScript-->
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+  </div>
+</body>
+
+</html>

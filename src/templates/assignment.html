@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  {% include 'navigation-student.html' %}
+  {% include 'nav-student-dashboard.html' %}
+        <li class="breadcrumb-item active">{{ assignment }}</li>
+      </ol>
+      <div class="row">
+        <div class="col-12">
+          <h1 class="header-margin-bottom">{{ assignment }}</h1>
+          <form action="{{ url_for('assignmentGradeView') }}" method='post'>
+          <input type='hidden' name='assignmentID' value="{{ assignment.assignment_id }}">
+          {% for question in assignment.questions %}
+          <div class="question">
+            <h4>{{ question }}</h4>
+            <p>{{ question.question_text }}</p>
+            <textarea name='{{ question.id }}' id="{{ question }}" type="text" class="form-control" /></textarea>
+          </div>
+          {% endfor %}
+		  	<table class="table">
+          <div>
+  			  <thead>
+  				</thead>
+  				<tbody>
+  					<tr id="submit-row1">
+  						<td>
+                <input id="submitAssignmtBtn" type="submit" class="btn btn-primary pull-right col-md-2 margin-right margin-left" value='Submit Assignment'/>
+  						</td>
+  					</tr>
+  				</tbody>
+  			  </div>
+  		  </table >
+      </form>
+      </div>
+    </div>
+  </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    {% include 'footer.html' %}
+	<!-- Logout Modal-->
+    {% include 'logout.html' %}
+  </div>
+</body>
+
+</html>

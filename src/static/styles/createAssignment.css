@@ -1,0 +1,90 @@
+.showShortAnswer1{
+ display: none;
+ }
+.showMultipleChoice1{
+ display: none;
+ }
+ .showMC1 {
+    display:none;
+}
+ .showTrueFalse1{
+ display: none;
+ }
+ .showChoiceOne1{
+ display: none;
+ }
+ .showChoiceTwo1{
+ display: none;
+ }
+ .showChoiceThree1{
+ display: none;
+ }
+ .showChoiceFour1{
+ display: none;
+ }
+ .showChoiceFive1{
+ display: none;
+ }
+
+
+ /* QUESTION TWO */
+
+.showShortAnswer2{
+display: none;
+}
+.showMultipleChoice2{
+display: none;
+}
+.showMC2 {
+    display:none;
+}
+.showTrueFalse2{
+display: none;
+}
+.showChoiceOne2{
+display: none;
+}
+.showChoiceTwo2{
+display: none;
+}
+.showChoiceThree2{
+display: none;
+}
+.showChoiceFour2{
+display: none;
+}
+.showChoiceFive2{
+display: none;
+}
+   
+
+
+ /* QUESTION THREE */
+
+.showShortAnswer3{
+display: none;
+}
+.showMultipleChoice3{
+display: none;
+}
+.showMC3 {
+display:none;
+}
+.showTrueFalse3{
+display: none;
+}
+.showChoiceOne3{
+display: none;
+}
+.showChoiceTwo3{
+display: none;
+}
+.showChoiceThree3{
+display: none;
+}
+.showChoiceFour3{
+display: none;
+}
+.showChoiceFive3{
+display: none;
+}

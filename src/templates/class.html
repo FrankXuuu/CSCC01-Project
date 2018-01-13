@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Project</title>
+  <!-- Bootstrap core CSS-->
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"  rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="{{ url_for('static', filename='styles/styles.css') }}" rel="stylesheet">
+  <script type=text/javascript src="{{ url_for('static', filename='js/statlab.js') }}"></script>
+
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  {% include 'navigation.html' %}
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{{ url_for('index') }}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">My Dashboard</li>
+      </ol>
+      <div class="m-scene" id="main">
+      <h4 class="scene_element scene_element--fadeinright">Class List</h4>      
+
+      <div class="container assignment-list-header scene_element scene_element--fadeinright">
+            <div class="row">
+              <div class="col lead">
+                  FIRST NAME
+              </div>
+              <div class="col lead">
+                  LAST NAME
+              </div>
+              <div class="col lead">   
+                  EMAIL
+              </div>
+          </div>
+        </div>
+      {% for student in students %}
+      <div class="assignment-list-no-interact scene_element scene_element--fadeinright">
+          
+                  <div class="row">
+                        <div class="col lead">
+                          
+                            {{ student.first_name }}
+                        </div>
+                        <div class="col lead">
+                             {{ student.last_name }}
+                        </div>
+                        <div class="col lead">
+                             {{ student.email }}
+                        </div>
+
+                  </div>
+      </div>
+
+      {% else %}
+        <p>You have not created any assignments yet</p>
+      {% endfor %}
+      <form class="scene_element scene_element--fadeinright" enctype="multipart/form-data" action="{{ url_for('classView') }}" method='post'>
+            <div class="form-group">
+                    <label for="exampleInputFile">Upload File of Students</label>
+                    <input name="csvFile"  type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                    <small id="fileHelp" class="form-text text-muted">File should be a csv with format first_name, last_name, email, password</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            
+      </form>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    {% include 'footer.html' %} 
+    <!-- Logout Modal-->
+    {% include 'logout.html' %} 
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+  </div>
+</body>
+
+</html>
+

@@ -1,0 +1,397 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.1
+-- Dumped by pg_dump version 10.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: alembic_version; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE alembic_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE alembic_version OWNER TO admin;
+
+--
+-- Name: assignment; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE assignment (
+    assignment_id integer NOT NULL,
+    start_date timestamp without time zone,
+    end_date timestamp without time zone
+);
+
+
+ALTER TABLE assignment OWNER TO admin;
+
+--
+-- Name: assignment_assignment_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE assignment_assignment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE assignment_assignment_id_seq OWNER TO admin;
+
+--
+-- Name: assignment_assignment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE assignment_assignment_id_seq OWNED BY assignment.assignment_id;
+
+
+--
+-- Name: professor; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE professor (
+    id integer NOT NULL,
+    email character varying,
+    name character varying,
+    password character varying NOT NULL
+);
+
+
+ALTER TABLE professor OWNER TO admin;
+
+--
+-- Name: professor_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE professor_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE professor_id_seq OWNER TO admin;
+
+--
+-- Name: professor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE professor_id_seq OWNED BY professor.id;
+
+
+--
+-- Name: question_template; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE question_template (
+    id integer NOT NULL,
+    question_text character varying,
+    solution_formula character varying,
+    error_margin integer,
+    assignment_id integer
+);
+
+
+ALTER TABLE question_template OWNER TO admin;
+
+--
+-- Name: question_template_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE question_template_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE question_template_id_seq OWNER TO admin;
+
+--
+-- Name: question_template_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE question_template_id_seq OWNED BY question_template.id;
+
+
+--
+-- Name: student; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE student (
+    student_id integer NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    email character varying NOT NULL,
+    password character varying NOT NULL
+);
+
+
+ALTER TABLE student OWNER TO admin;
+
+--
+-- Name: student_grade; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE student_grade (
+    student_id integer NOT NULL,
+    assignment_id integer NOT NULL,
+    grade integer
+);
+
+
+ALTER TABLE student_grade OWNER TO admin;
+
+--
+-- Name: student_student_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE student_student_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE student_student_id_seq OWNER TO admin;
+
+--
+-- Name: student_student_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE student_student_id_seq OWNED BY student.student_id;
+
+
+--
+-- Name: assignment assignment_id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY assignment ALTER COLUMN assignment_id SET DEFAULT nextval('assignment_assignment_id_seq'::regclass);
+
+
+--
+-- Name: professor id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY professor ALTER COLUMN id SET DEFAULT nextval('professor_id_seq'::regclass);
+
+
+--
+-- Name: question_template id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY question_template ALTER COLUMN id SET DEFAULT nextval('question_template_id_seq'::regclass);
+
+
+--
+-- Name: student student_id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY student ALTER COLUMN student_id SET DEFAULT nextval('student_student_id_seq'::regclass);
+
+
+--
+-- Data for Name: alembic_version; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY alembic_version (version_num) FROM stdin;
+519846223e2c
+\.
+
+
+--
+-- Data for Name: assignment; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY assignment (assignment_id, start_date, end_date) FROM stdin;
+1	2017-11-09 00:00:00	2017-11-23 00:00:00
+\.
+
+
+--
+-- Data for Name: professor; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY professor (id, email, name, password) FROM stdin;
+1	sohee@utsc.ca	Sohee Kang	sohee2017
+\.
+
+
+--
+-- Data for Name: question_template; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY question_template (id, question_text, solution_formula, error_margin, assignment_id) FROM stdin;
+0	test	temp	0	\N
+1	asdf	temp	0	\N
+4	sefafsd	temp	0	1
+2	asdf	temp	0	\N
+3	edit	temp	0	1
+\.
+
+
+--
+-- Data for Name: student; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY student (student_id, first_name, last_name, email, password) FROM stdin;
+205755600	dave	diu	david@d.iu	diu
+1234567890	Johnny	Bravo	bravojohnny@grats.fam	lorsisthebest
+\.
+
+
+--
+-- Data for Name: student_grade; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY student_grade (student_id, assignment_id, grade) FROM stdin;
+205755600	1	0
+1234567890	1	0
+\.
+
+
+--
+-- Name: assignment_assignment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('assignment_assignment_id_seq', 1, false);
+
+
+--
+-- Name: professor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('professor_id_seq', 1, true);
+
+
+--
+-- Name: question_template_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('question_template_id_seq', 1, false);
+
+
+--
+-- Name: student_student_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('student_student_id_seq', 1, false);
+
+
+--
+-- Name: alembic_version alembic_version_pkc; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY alembic_version
+    ADD CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: assignment assignment_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY assignment
+    ADD CONSTRAINT assignment_pkey PRIMARY KEY (assignment_id);
+
+
+--
+-- Name: professor professor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY professor
+    ADD CONSTRAINT professor_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: question_template question_template_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY question_template
+    ADD CONSTRAINT question_template_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student student_email_key; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY student
+    ADD CONSTRAINT student_email_key UNIQUE (email);
+
+
+--
+-- Name: student_grade student_grade_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY student_grade
+    ADD CONSTRAINT student_grade_pkey PRIMARY KEY (student_id, assignment_id);
+
+
+--
+-- Name: student student_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY student
+    ADD CONSTRAINT student_pkey PRIMARY KEY (student_id);
+
+
+--
+-- Name: question_template question_template_assignment_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY question_template
+    ADD CONSTRAINT question_template_assignment_id_fkey FOREIGN KEY (assignment_id) REFERENCES assignment(assignment_id);
+
+
+--
+-- Name: student_grade student_grade_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY student_grade
+    ADD CONSTRAINT student_grade_student_id_fkey FOREIGN KEY (student_id) REFERENCES student(student_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

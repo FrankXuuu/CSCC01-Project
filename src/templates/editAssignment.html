@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    {% include 'head.html' %}
+  <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+
+  <script>
+  questionCount = 0;
+  function addRow(input) {
+      var table = document.getElementById("myTable");
+      questionCount = document.getElementById("myTable").rows.length;
+      var i = parseInt(input.id.substring(3, input.id.length));
+      console.log(i);
+      document.getElementById('icon' + i).className = "fa fa-minus";
+      var row = table.insertRow(table.rows.length);
+      row.id = "row" + (i + 1);
+      var cell = row.insertCell(0);
+      cell.innerHTML = '<label class="label lead" for="stock'+(i+1)+'" id="label'+(i+1)+'">'+'Question '+(i+1)+'</label>'+
+                        '<button id="btn'+(i+1)+'" type="button" class="pull-right btn btn-success question" onclick="addRow(this)">'+
+                            '<i  id="icon'+(i+1)+'" class="fa fa-plus" aria-hidden="true"></i>' +
+                        '</button>'+
+                        '<div class="form-group">'+
+                          '<textarea name="-1" class="form-control" id="exampleTextarea" rows="3" placeholder="Place text, or latex code here"></textarea>'+
+                       '</div>' +
+                       '<div class="row">'+
+                          '<label class="col-6" for="exampleSelect'+(i+1)+'">Question Type</label>'+
+                          '<label class="col-6 showShortAnswer'+(i+1)+'" for="errorMargin'+(i+1)+'">Error Margin</label>'+ 
+                          '<label class="col-6 showMultipleChoice'+(i+1)+'" for="multipleChoice'+(i+1)+'"># of Choices</label>'+
+                          '<label class="col-6 showTrueFalse'+(i+1)+'" for="selectTF'+(i+1)+'">Answer</label>'+     
+                      '</div>'+
+                       '<div class="form-group row">'+
+                          '<div class="input-group col-6">'+
+                            '<select name="-1" class="form-control" id="exampleSelect'+(i+1)+'">'+
+                              '<option value="" selected disabled hidden></option>'+
+                              '<option>Multiple Choice</option>'+
+                              '<option>Short Answer</option>'+
+                              '<option>True or False</option>'+
+                            '</select>'+
+                          '</div>'+
+                          '<div class="form-group col-6 showShortAnswer'+(i+1)+'">'+
+                              '<input name="errorMargin'+(i+1)+'" type="text" class="form-control" id="errorMargin'+(i+1)+'" placeholder="Enter the answer error margin">'+
+                          '</div>'+
+                          '<div class="form-group col-6 showMultipleChoice'+(i+1)+'">'+ 
+                              '<input name="multipleChoice'+(i+1)+'" type="number" min="2" max="5" class="form-control" id="multipleChoice'+(i+1)+'" placeholder="Enter the number of choices">'+
+                          '</div>'+
+                          '<div class="form-group col-6 showTrueFalse'+(i+1)+'">'+
+                              '<select name="questionType'+(i+1)+'" class="form-control" id="selectTF'+(i+1)+'">'+
+                                  '<option value="" selected disabled hidden>True or False</option>'+
+                                  '<option>False</option>'+
+                                  '<option>True</option>'+
+                               '</select>'+
+                          '</div>'+
+                      '</div>'+
+                      '<div class="form-group showMultipleChoice'+(i+1)+'">'+
+                          '<div class="form-check showChoiceOne'+(i+1)+'">'+
+                              '<label class="form-check-label">'+
+                              '<input class="form-check-input" type="radio" name="radiosOne'+(i+1)+'" id="exampleRadios'+(i+1)+'" value="option'+(i+1)+'" checked>'+
+                              '<input name="radioTextOne'+(i+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option One">'+
+                              '</label>'+
+                          '</div>'+
+                          '<div class="form-check showChoiceTwo'+(i+1)+'">'+
+                              '<label class="form-check-label">'+
+                              '<input class="form-check-input" type="radio" name="radiosTwo'+(i+1)+'" id="exampleRadios2" value="option2">'+
+                              '<input name="radioTextTwo'+(i+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option Two">'+
+                              '</label>'+
+                          '</div>'+
+                          '<div class="form-check showChoiceThree'+(i+1)+'">'+
+                              '<label class="form-check-label">'+
+                              '<input class="form-check-input" type="radio" name="radiosThree'+(i+1)+'" id="exampleRadios2" value="option2">'+
+                              '<input name="radioTextThree'+(i+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option Three">'+
+                              '</label>'+
+                          '</div>'+
+                          '<div class="form-check showChoiceFour'+(i+1)+'">'+
+                                  '<label class="form-check-label">'+
+                                  '<input class="form-check-input" type="radio" name="radiosFour'+(i+1)+'" id="exampleRadios2" value="option2">'+
+                                  '<input name="radioTextFour'+(i+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option Four">'+
+                                  '</label>'+
+                          '</div>'+                                                          
+                          '<div class="form-check showChoiceFive'+(i+1)+'">'+
+                              '<label class="form-check-label">'+
+                                  '<input class="form-check-input" type="radio" name="radiosFive'+(i+1)+'" id="exampleRadios2" value="option2">'+
+                                  '<input name="radioTextFive'+(i+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option Five">'+
+                              '</label>'+
+                          '</div>'+
+                      '</div>';
+      $('#btn'+i).attr('onclick', 'remRow(this)');
+      questionCount++;
+
+    }
+    function remRow(input) {
+      var table = document.getElementById("myTable");
+      var i = parseInt(input.id.substring(3, input.id.length));
+      var ind = table.rows["row" +i].rowIndex;
+      table.deleteRow(ind);
+      questionCount--;
+      console.log(document.getElementsByClassName('label'));
+      var labels = document.getElementsByClassName('label');
+      for (i = 0; i < labels.length; i++) {
+         labels[i].for = "stock"+(i+1);
+         labels[i].id = "label"+(i+1);
+      }
+
+    }
+
+    </script>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  {% include 'navigation.html' %}
+  {% include 'nav-prof-dashboard.html' %}
+        <li class="breadcrumb-item active">Edit Assignment</li>
+      </ol>
+      <div class="m-scene" id="main">
+      <div class="row scene_element scene_element--fadeinright">
+        <div class="col-12">
+          <h1>Edit Assignment</h1>
+          <p>Edit assignment template by adding questions. When done, click the submit button and confirm.</p>
+        </div>
+      </div>
+      {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+    {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}      
+    <form class="scene_element scene_element--fadeinright" action="{{ url_for('editAssignmentView') }}" method='post'>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Assignment Number</label>
+          <input disabled name="assignmentID" value="{{ assignment.assignment_id }}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter the assignment number">
+        </div>
+        <div class="row">
+            <label class="col-6" for="datetimepicker1">Start Date</label>
+            
+            <label class="col-6" for="datetimepicker2">End Date</label>            
+          </div>            
+          <div class="row form-group">
+              <div class='input-group date col-6' id='datetimepicker1'>
+                  <input value="{{ assignment.start_date }}" name="startDate" type='text' class="form-control" />
+                  <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                  </span>
+              </div>
+              <div class='input-group date col-6' id='datetimepicker2'>
+                  <input value="{{ assignment.end_date }}" name="endDate" type='text' class="form-control" />
+                  <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                  </span>
+              </div>
+        </div>
+        
+
+
+        <table class="table" id="myTable">
+            <thead>
+            </thead>
+            <tbody>
+                {% for question in questions %}                
+                <tr id="row{{ loop.index }}">
+                    <td>
+                      <label class="label lead" for="stock{{ loop.index }}" id="label{{ loop.index }}">Question {{ loop.index }}</label>
+                      <button id="btn{{ loop.index }}" type="button" class="pull-right btn btn-success form-group" onclick="addRow(this)">                            
+                          <i  id="icon{{ loop.index }}" class="fa fa-plus" aria-hidden="true"></i>                            
+                      </button>
+                      <div class="form-group">
+                          <textarea name="{{ question.id }}" class="form-control" id="exampleTextarea" rows="3" placeholder="Place text, or latex code here">{{ question.question_text }}</textarea>
+                      </div>
+                      <div class="row">
+                          <label class="col-6" for="exampleSelect{{ loop.index }}">Question Type</label>                
+                          <label class="col-6 showShortAnswer{{ loop.index }}" for="errorMargin{{ loop.index }}">Error Margin</label> 
+                          <label class="col-6 showMultipleChoice{{ loop.index }}" for="multipleChoice{{ loop.index }}"># of Choices</label>            
+                          <label class="col-6 showTrueFalse{{ loop.index }}" for="selectTF{{ loop.index }}">Answer</label>            
+                          
+                      </div>   
+                      <div class="form-group row">
+                          <div class='input-group col-6'>                                  
+                              <select name="questionType{{ loop.index }}" class="form-control" id="exampleSelect{{ loop.index }}">
+                                <option value="" selected disabled hidden></option>              
+                                <option>Multiple Choice</option>
+                                <option>Short Answer</option>
+                                <option>True or False</option>
+                              </select>
+                          </div>                              
+                          <div class='form-group col-6 showShortAnswer{{ loop.index }}'> 
+                              <input name="errorMargin{{ loop.index }}" type="text" class="form-control" id="errorMargin{{ loop.index }}" placeholder="Enter the answer error margin">
+                          </div>
+                          <div class='form-group col-6 showMultipleChoice{{ loop.index }}'> 
+                              <input name="multipleChoice{{ loop.index }}" type="number" min="2" max="5" class="form-control" id="multipleChoice{{ loop.index }}" placeholder="Enter the number of choices">
+                          </div>
+                          <div class='form-group col-6 showTrueFalse{{ loop.index }}'> 
+                              <select name="questionType{{ loop.index }}" class="form-control" id="selectTF{{ loop.index }}">
+                                  <option value="" selected disabled hidden>True or False</option>              
+                                  <option>False</option>
+                                  <option>True</option>
+                                </select>
+                          </div>
+                      </div>
+                      <div class="form-group showMultipleChoice{{ loop.index }}">
+                          <div class="form-check showChoiceOne{{ loop.index }}">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="radiosOne{{ loop.index }}" id="exampleRadios{{ loop.index }}" value="option{{ loop.index }}" checked>
+                                <input name="radioTextOne{{ loop.index }}" type="text" class="form-control" id="optionOne" placeholder="Option One">
+                              </label>
+                            </div>
+                            <div class="form-check showChoiceTwo{{ loop.index }}">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="radiosTwo{{ loop.index }}" id="exampleRadios2" value="option2">
+                                <input name="radioTextTwo{{ loop.index }}" type="text" class="form-control" id="optionOne" placeholder="Option Two">
+                              </label>
+                            </div>
+                            <div class="form-check showChoiceThree{{ loop.index }}">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="radiosThree{{ loop.index }}" id="exampleRadios2" value="option2">
+                                <input name="radioTextThree{{ loop.index }}" type="text" class="form-control" id="optionOne" placeholder="Option Three">
+                              </label>
+                            </div>
+                            <div class="form-check showChoiceFour{{ loop.index }}">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="radiosFour{{ loop.index }}" id="exampleRadios2" value="option2">
+                                    <input name="radioTextFour{{ loop.index }}" type="text" class="form-control" id="optionOne" placeholder="Option Four">
+                                  </label>
+                            </div>                                                          
+                            <div class="form-check showChoiceFive{{ loop.index }}">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="radio" name="radiosFive{{ loop.index }}" id="exampleRadios2" value="option2">
+                                  <input name="radioTextFive{{ loop.index }}" type="text" class="form-control" id="optionOne" placeholder="Option Five">
+                                </label>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+
+
+        <button type="submit" class="btn form-group btn-primary pull-right col-md-3 margin-right margin-left">Submit</button>
+      </form>
+      <script type="text/javascript">
+            $('#datetimepicker1').datepicker();
+            $('#datetimepicker2').datepicker();
+      </script>
+      
+      
+    </div>
+    
+    </div>
+    
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    {% include 'footer.html' %}
+    <!-- Logout Modal-->
+    {% include 'logout.html' %}
+    <!-- Bootstrap core JavaScript-->
+    
+</body>
+
+</html>

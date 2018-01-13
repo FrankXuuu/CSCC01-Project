@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  {% include 'navigation-student.html' %}
+  {% include 'nav-student-dashboard.html' %}
+        <li class="breadcrumb-item active">Assignment 4</li>
+      </ol>
+      <div class="row">
+        <div class="col-12">
+          <h1 class="header-margin-bottom">Assignment Results</h1>
+		  <h4>Your Grade: {{ grade }}</p>
+		  <table class="table">
+          <div>
+			  <thead>
+				</thead>
+					<tbody>
+						<tr id="submit-row1">
+							<td>
+								<button id="redoBtn" type="text" class="btn btn-primary pull-right col-md-2 margin-right margin-left" onclick="post('/assignment', 
+								{ assignmentID: {{ assignment.assignment_id }} })">Redo Assignment</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+	              				<a id="returnBtn" type="text" class="btn btn-primary pull-right col-md-2 margin-right margin-left" href="{{ url_for('studentIndexView') }}"">Return to Dashboard</a>                        
+							</td>
+						</tr>
+					</tbody>
+			  </div>
+		  </table >
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    {% include 'footer.html' %}
+    <!-- Logout Modal-->
+    {% include 'logout.html' %}
+  </div>
+</body>
+
+</html>

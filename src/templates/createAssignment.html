@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Project</title>
+  <!-- Bootstrap core CSS-->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"  rel="stylesheet">
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  
+  <script type=text/javascript src="{{ url_for('static', filename='js/jquery.smoothstate.min.js') }}"></script>    
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+  
+  <!-- Custom fonts for this template-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="{{ url_for('static', filename='styles/styles.css') }}" rel="stylesheet">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+  <link href="{{ url_for('static', filename='styles/createAssignment.css') }}" rel="stylesheet">
+  
+  <!-- Core plugin JavaScript-->
+  
+  <!-- <script type=text/javascript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script> -->
+  <script type=text/javascript src="{{ url_for('static', filename='js/statlab.js') }}"></script>
+  <script type=text/javascript src="{{ url_for('static', filename='js/createAssignment.js') }}"></script>
+  
+  <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+
+  <script>
+  questionCount = 1;
+  function addRow(input) {
+      var table = document.getElementById("myTable");
+      var i = parseInt(input.id.substring(3, input.id.length));
+      document.getElementById('icon' + i).className = "fa fa-minus";
+      var row = table.insertRow(table.rows.length);
+      row.id = "row" + (i + 1);
+      var cell = row.insertCell(0);
+      cell.innerHTML = '<label class="label lead" for="stock'+(questionCount+1)+'" id="label'+(i+1)+'">'+'Question '+(questionCount+1)+'</label>'+
+                        '<button id="btn'+(i+1)+'" type="button" class="pull-right btn btn-success question" onclick="addRow(this)">'+
+                            '<i  id="icon'+(i+1)+'" class="fa fa-plus" aria-hidden="true"></i>' +
+                        '</button>'+
+                        '<div class="form-group">'+
+                          '<textarea name="question'+(questionCount+1)+'" class="form-control" id="exampleTextarea" rows="3" placeholder="Place text, or latex code here"></textarea>'+
+                       '</div>' +
+                       '<div class="row">'+
+                          '<label class="col-6" for="exampleSelect'+(questionCount+1)+'">Question Type</label>'+
+                          '<label class="col-6 showShortAnswer'+(questionCount+1)+'" for="errorMargin'+(questionCount+1)+'">Error Margin</label>'+ 
+                          '<label class="col-6 showMultipleChoice'+(questionCount+1)+'" for="multipleChoice'+(questionCount+1)+'"># of Choices</label>'+
+                          '<label class="col-6 showTrueFalse'+(questionCount+1)+'" for="selectTF'+(questionCount+1)+'">Answer</label>'+     
+                      '</div>'+
+                       '<div class="form-group row">'+
+                          '<div class="input-group col-6">'+
+                            '<select name="questionType'+(questionCount+1)+'" class="form-control" id="exampleSelect'+(questionCount+1)+'">'+
+                              '<option value="" selected disabled hidden></option>'+
+                              '<option>Multiple Choice</option>'+
+                              '<option>Short Answer</option>'+
+                              '<option>True or False</option>'+
+                            '</select>'+
+                          '</div>'+
+                          '<div class="form-group col-6 showShortAnswer'+(questionCount+1)+'">'+
+                              '<input name="errorMargin'+(questionCount+1)+'" type="number" class="form-control" id="errorMargin'+(questionCount+1)+'" placeholder="Enter the answer error margin">'+
+                          '</div>'+
+                          '<div class="form-group col-6 showMultipleChoice'+(questionCount+1)+'">'+ 
+                              '<input type="number" min="2" max="5" class="form-control" id="multipleChoice'+(questionCount+1)+'" placeholder="Enter the number of choices">'+
+                          '</div>'+
+                          '<div class="form-group col-6 showTrueFalse'+(questionCount+1)+'">'+
+                              '<select name="answerTF'+(questionCount+1)+'" class="form-control" id="selectTF'+(questionCount+1)+'">'+
+                                  '<option value="" selected disabled hidden>True or False</option>'+
+                                  '<option>False</option>'+
+                                  '<option>True</option>'+
+                               '</select>'+
+                          '</div>'+
+                      '</div>'+
+                      '<div class="form-group showMultipleChoice'+(questionCount+1)+'">'+
+                          '<input hidden disabled selected class="form-check-input" type="radio" id="exampleRadios'+(questionCount+1)+'" value="option1" checked>'+
+                          '<div class="form-check showChoiceOne'+(questionCount+1)+'">'+
+                              '<label class="form-check-label">'+
+                              '<input class="form-check-input" type="radio" name="radio'+(questionCount+1)+'" id="exampleRadios'+(questionCount+1)+'" value="option'+(questionCount+1)+'" checked>'+
+                              '<input name="radioText'+(questionCount+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option One">'+
+                              '</label>'+
+                          '</div>'+
+                          '<div class="form-check showChoiceTwo'+(questionCount+1)+'">'+
+                              '<label class="form-check-label">'+
+                              '<input class="form-check-input" type="radio" name="radio'+(questionCount+1)+'" id="exampleRadios2" value="option2">'+
+                              '<input name="radioText'+(questionCount+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option Two">'+
+                              '</label>'+
+                          '</div>'+
+                          '<div class="form-check showChoiceThree'+(questionCount+1)+'">'+
+                              '<label class="form-check-label">'+
+                              '<input class="form-check-input" type="radio" name="radio'+(questionCount+1)+'" id="exampleRadios2" value="option2">'+
+                              '<input name="radioText'+(questionCount+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option Three">'+
+                              '</label>'+
+                          '</div>'+
+                          '<div class="form-check showChoiceFour'+(questionCount+1)+'">'+
+                                  '<label class="form-check-label">'+
+                                  '<input class="form-check-input" type="radio" name="radio'+(questionCount+1)+'" id="exampleRadios2" value="option2">'+
+                                  '<input name="radioText'+(questionCount+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option Four">'+
+                                  '</label>'+
+                          '</div>'+                                                          
+                          '<div class="form-check showChoiceFive'+(questionCount+1)+'">'+
+                              '<label class="form-check-label">'+
+                                  '<input class="form-check-input" type="radio" name="radio'+(questionCount+1)+'" id="exampleRadios2" value="option2">'+
+                                  '<input name="radioText'+(questionCount+1)+'" type="text" class="form-control" id="optionOne" placeholder="Option Five">'+
+                              '</label>'+
+                          '</div>'+
+                      '</div>';
+      $('#btn'+i).attr('onclick', 'remRow(this)');
+      questionCount++;
+      document.getElementById("numQuestions").value = questionCount;
+
+    }
+    function remRow(input) {
+      var table = document.getElementById("myTable");
+      var i = parseInt(input.id.substring(3, input.id.length));
+      var ind = table.rows["row" +i].rowIndex;
+      table.deleteRow(ind);
+      questionCount--;
+      console.log(document.getElementsByClassName('label'));
+      var labels = document.getElementsByClassName('label');
+      for (i = 0; i < labels.length; i++) {
+         labels[i].innerHTML = "Question "+(i+1);
+         labels[i].for = "stock"+(i+1);
+         labels[i].id = "label"+(i+1);
+      }
+      document.getElementById("numQuestions").value = questionCount;
+    }
+    </script>
+
+
+
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  {% include 'navigation.html' %}
+  {% include 'nav-prof-dashboard.html' %}
+        <li class="breadcrumb-item active">Create Assignment</li>
+      </ol>
+      <div class="m-scene" id="main">
+      <div class="row scene_element scene_element--fadeinright">
+        <div class="col-12">
+          <h1>Create Assignment</h1>
+          <p>Create assignment template by adding questions. When done, click the submit button and confirm.</p>
+        </div>
+      </div>
+      {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+    {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+      
+    <form class="scene_element scene_element--fadeinright" action="{{ url_for('createAssignmentView') }}" method='post'>
+        <input hidden name="numQuestions" id="numQuestions" type="number" value="1">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Assignment Number</label>
+          <input name="assignmentID" type="number" class="form-control" id="exampleInputEmail1" placeholder="Enter the assignment number">
+        </div>
+        <div class="row">
+            <label class="col-6" for="datetimepicker1">Start Date</label>
+            
+            <label class="col-6" for="datetimepicker2">End Date</label>            
+          </div>            
+          <div class="row form-group">
+              <div class='input-group date col-6' id='datetimepicker1'>
+                  <input name="startDate" type='text' class="form-control" />
+                  <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                  </span>
+              </div>
+              <div class='input-group date col-6' id='datetimepicker2'>
+                  <input name="endDate" type='text' class="form-control" />
+                  <span class="input-group-addon">
+                      <span class="fa fa-calendar"></span>
+                  </span>
+              </div>
+        </div>
+        <table class="table" id="myTable">
+            <thead>
+            </thead>
+            <tbody>
+                <tr id="row1">
+                    <td>
+                      <label class="label lead" for="stock1" id="label1">Question 1</label>
+                      <button id="btn1" type="button" class="pull-right btn btn-success form-group" onclick="addRow(this)">                            
+                          <i  id="icon1" class="fa fa-plus" aria-hidden="true"></i>                            
+                      </button>
+                      <div class="form-group">
+                          <textarea name="question1" class="form-control" id="exampleTextarea" rows="3" placeholder="Place text, or latex code here"></textarea>
+                      </div>
+                      <div class="row">
+                          <label class="col-6" for="exampleSelect1">Question Type</label>                
+                          <label class="col-6 showShortAnswer1" for="errorMargin1">Error Margin</label> 
+                          <label class="col-6 showMultipleChoice1" for="multipleChoice1"># of Choices</label>            
+                          <label class="col-6 showTrueFalse1" for="selectTF1">Answer</label>            
+                          
+                      </div>   
+                      <div class="form-group row">
+                          <div class='input-group col-6'>                                  
+                              <select name="questionType1" class="form-control" id="exampleSelect1">
+                                <option>Multiple Choice</option>
+                                <option selected >Short Answer</option>
+                                <option>True or False</option>
+                              </select>
+                          </div>                              
+                          <div class='form-group col-6 showShortAnswer1'> 
+                              <input name="errorMargin1" type="number" class="form-control" id="errorMargin1" placeholder="Enter the answer error margin">
+                          </div>
+                          <div class='form-group col-6 showMultipleChoice1'> 
+                              <input type="number" min="2" max="5" class="form-control" id="multipleChoice1" placeholder="Enter the number of choices">
+                          </div>
+                          <div class='form-group col-6 showTrueFalse1'> 
+                              <select name="answerTF1" class="form-control" id="selectTF1">
+                                  <option value="" selected disabled hidden>True or False</option>              
+                                  <option>False</option>
+                                  <option>True</option>
+                                </select>
+                          </div>
+                      </div>
+                      <div class="form-group showMC1">
+                          <div class="form-check showChoiceOne1">
+                              <input hidden disabled selected class="form-check-input" type="radio" id="exampleRadios1" value="option1" checked>
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="radio1" id="exampleRadios1" value="option1" checked>
+                                <input name="radioText1" type="text" class="form-control" id="optionOne" placeholder="Option One">
+                              </label>
+                            </div>
+                            <div class="form-check showChoiceTwo1">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="radio1" id="exampleRadios2" value="option2">
+                                <input name="radioText1" type="text" class="form-control" id="optionOne" placeholder="Option Two">
+                              </label>
+                            </div>
+                            <div class="form-check showChoiceThree1">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="radio1" id="exampleRadios2" value="option3">
+                                <input name="radioText1" type="text" class="form-control" id="optionOne" placeholder="Option Three">
+                              </label>
+                            </div>
+                            <div class="form-check showChoiceFour1">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="radio1" id="exampleRadios2" value="option4">
+                                    <input name="radioText1" type="text" class="form-control" id="optionOne" placeholder="Option Four">
+                                  </label>
+                            </div>                                                          
+                            <div class="form-check showChoiceFive1">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="radio" name="radio1" id="exampleRadios2" value="option5">
+                                  <input name="radioText1" type="text" class="form-control" id="optionOne" placeholder="Option Five">
+                                </label>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn form-group btn-primary pull-right col-md-3 margin-right margin-left">Submit</button>
+      </form>
+    </div>
+    
+    </div>
+    
+    </div>
+    
+      
+      
+
+    <script type="text/javascript">
+      $('#datetimepicker1').datepicker();
+      $('#datetimepicker2').datepicker();
+    </script>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    {% include 'footer.html' %}
+    <!-- Logout Modal-->
+    {% include 'logout.html' %}
+  </div>
+</body>
+
+</html>

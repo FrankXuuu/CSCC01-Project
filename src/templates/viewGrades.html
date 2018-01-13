@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'head.html' %}
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  {% include 'navigation-student.html' %}
+  {% include 'nav-student-dashboard.html' %}
+  
+        <li class="breadcrumb-item active ">My Grades</li>
+      </ol>
+      <div class="m-scene" id="main">
+          
+      <h1 class="header-margin-bottom scene_element scene_element--fadeinright"> My Grades </h1>
+      <div class="container assignment-list-header scene_element scene_element--fadeinright">
+          <div class="row">
+            <div class="col lead">
+                #
+            </div>
+            <div class="col lead">
+                GRADE
+            </div>
+        </div>
+      </div>
+				 			{% for grade in student.grades %}
+			
+										<div class="container assignment-list-no-interact scene_element scene_element--fadeinright">
+												
+																<div class="row">
+																			<div class="col lead">
+																				
+                                          Assignment {{ grade.assignment_id }}
+																			</div>
+			
+																			<div class="col">
+                                          {{ grade.grade }}%
+																			</div>
+																</div>
+										</div>
+								{% else %}
+									<h4>No assignments have been assigned</h4>
+								{% endfor %}
+			
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    {% include 'footer.html' %}
+    <!-- Logout Modal-->
+    {% include 'logout.html' %}
+  </div>
+</body>
+
+</html>

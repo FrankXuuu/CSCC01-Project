@@ -1,0 +1,63 @@
+U1: As Sohee (a professor), I would like to be able to generate text question templates, where the details (mostly variable values) of the questions are randomized for each assignment instance.
+
+Validation Test: After following the setup instructions, login with your local machine with a professor account. Then click on “Create Assignment” that appears at the top of the screen and then create a question of the given types in the question template at the bottom.
+
+U2: As Sohee (a professor), I would like to have three types of question templates: Short answer, multiple choice, and True False by picking the type from a drop down list.
+
+Validation Test: After logging in with a professor account and clicking on "Create Assignment" or when editing an assignment you can scroll down to a question template and click on "Question Type" to select the question type you desire and even set the answers and the number of multiple choice answers.
+
+U3: As Sohee (a professor), I would like to type in the answer of the questions as a LaTeX formula.
+
+Validation Test: When creating or editing an assignment you can type into the question template textbox in latex and even the answer in the same textbox in a special form.
+
+U4: As Sohee (a professor), I would like to type in the range of acceptable answers by typing an error margin.
+
+Validation Test: When creating or editing an assignment you can type into the question template textbox in latex and add error margins for the answer.
+
+U5: As Sohee (a professor), I would like to have an account where I can save the question templates.
+
+Validation Test: Using a professor account to log in into your local machine, click on “Create Assignment” and after making an “n” amount of question templates and filling out the important information above such as due date and start date, click on “Submit” at the bottom to save the questions and assignment which can later be viewed in “Dashboard”.
+
+U6: As Sohee (a professor), I would like to be able to edit the question templates once I am finished by clicking an edit button and using my keyboard afterwards.
+
+Validation Test: After successfully creating an assignment go to “Dashboard” at the top and click on the Assignment number you want to edit, and it is possible to edit the question templates by typing in the changes and changing the question type into short answer, multiple choice or true and false.
+
+U7: As Sohee (a professor), I would like to create a collection of question templates that are for a particular assignment, which will be the base for assignment instances.
+
+Validation Test: When creating/editing an assignment the question templates made will be saved into that specific assignment you are currently working on.
+
+U8: As Sohee (a professor), I would like to be able to create as many accounts as there are students, where each account has a studentID, tutorial number, and a list of assignments.
+
+Validation Test: After signing in with a professor account, you can click on the course name for example STAB22 and then near the bottom of the screen you can upload a file to add more students into the class which has to be a .csv file.
+
+U9: As Sohee (a professor), I would like to be able to set the start date of each assignment at which point the assignment is visible to the student under the list of their assignments.
+
+Validation Test: After logging in with a professor account when creating an assignment, it is possible to set the start date and in the Dashboard when editing the assignment, it is possible to change the start date.
+
+U10: As Sohee (a professor), I would like to be able to set the due date of the assignments at which point students will still see the assignment in the list of assignments, but are not able to edit it, post due date.
+
+Validation Test: After logging in with a professor account when creating an assignment, it is possible to set the due date and in the Dashboard when editing the assignment, it is possible to change the due date.
+
+U11: As Sohee (a professor), I want each student to be able to start an assignment which is randomly generated based on the assignment template I made.
+
+Validation Test: After logging in with a professor account, when editing or creating an assignment it should be possible to use latex to set the variables which will have a randomly generated number which will create a large amount of different assignment templates.
+
+U12: As Alexander (a student), when the assignment is viewable (is under the list of my assignments) I want to be able to start the assignment with the click of a button.
+
+Validation Test: After logging in with a student account you can view all assignments that are currently visible and then if it is past the start date and before the due date it is possible to click on “CLICK TO START” to begin the assignment.
+
+U13: As Louise (a student), I would like to submit my assignment by clicking a button.
+
+Validation Test: After logging in with a student account and starting the assignment, you may be able to answer the given questions and after that at the bottom of the screen should be “Submit Assignment”, when clicking on it will submit the assignment.
+
+U14: As Alexander (a student), I would like to be able to see the grade of my assignment after I have submitted it.
+
+Validation Test: After successfully submitting the assignment it will show your grade on that specific assignment written and what questions you may have answered incorrectly. Also after submitting the assignment it is possible to click on “View Grades” at the top of the screen to see past assignment and your highest grade of each assignment.
+
+U15: As Sohee (a prof), I would like the students to be able to redo the entire assignment for a set amount of times, where each retry is a different set of questions from what they have already done.
+
+Validation Test: After submitting the assignment, you can reattempt that same assignment by clicking on “Redo Assignment” at the Dashboard, where the assignment should have different values in that assignment.
+
+U16: As Sohee (a prof), I want the final assignment grade to be the maximum grade the student has achieved from all the previous tries.
+
+Validation Test: After logging in with a student account click on “View Grades” at the top to see the highest grade of all past attempts in that assignment 0 being no attempt. Also after submitting your assignment your possibly highest new grade on that assignment should be saved and checked in “View Grades”.
